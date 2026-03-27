@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avani Badkul — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --bg:       #f5f4f0;
+  --white:    #ffffff;
+  --ink:      #1a1a1a;
+  --muted:    #555555;
+  --light:    #888888;
+  --border:   #e0ddd8;
+  --purple:   #7c6fa0;
+  --purple2:  #6b5d94;
+  --purple-bg:#f0edf7;
+  --dark-bg:  #2a2840;
+  --dark-bg2: #231f3a;
+  --serif:    'Cormorant Garamond', serif;
+  --sans:     'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.4rem 3rem;
+  background: rgba(245,244,240,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--serif); font-size: 1.3rem; font-weight: 600;
+  color: var(--purple); letter-spacing: 0.05em;
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 0.82rem; font-weight: 400;
+  color: var(--muted); transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  padding: 9rem 3rem 5rem;
+  position: relative; overflow: hidden;
+  background: var(--bg);
+}
+
+/* ghost last name watermark on right */
+.hero-ghost {
+  position: absolute;
+  right: -2rem; top: 50%; transform: translateY(-50%);
+  font-family: var(--serif);
+  font-size: clamp(10rem, 22vw, 22rem);
+  font-weight: 600; line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(124,111,160,0.13);
+  user-select: none; pointer-events: none;
+  letter-spacing: -0.03em;
+}
+
+.hero-location {
+  font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--light); margin-bottom: 2rem;
+  opacity: 0; animation: fadeUp 0.6s 0.1s forwards;
+}
+
+.hero-name {
+  opacity: 0; animation: fadeUp 0.7s 0.25s forwards;
+}
+
+.hero-firstname {
+  font-family: var(--serif); font-size: clamp(4.5rem, 10vw, 9rem);
+  font-weight: 500; line-height: 1; color: var(--ink);
+  display: block;
+}
+
+.hero-lastname {
+  font-family: var(--serif); font-size: clamp(4.5rem, 10vw, 9rem);
+  font-weight: 500; font-style: italic; line-height: 1;
+  color: var(--purple); display: block;
+}
+
+.hero-roles {
+  margin-top: 2.5rem; font-size: 0.85rem; color: var(--muted);
+  display: flex; gap: 0; align-items: center;
+  opacity: 0; animation: fadeUp 0.7s 0.45s forwards;
+}
+.hero-roles span { padding: 0 0.75rem; }
+.hero-roles span:first-child { padding-left: 0; }
+.hero-dot { color: var(--light); }
+
+.hero-ctas {
+  display: flex; gap: 1rem; margin-top: 3rem;
+  opacity: 0; animation: fadeUp 0.7s 0.6s forwards;
+}
+
+.btn-filled {
+  padding: 0.8rem 2rem;
+  background: var(--purple); color: var(--white);
+  font-size: 0.82rem; font-weight: 500;
+  border: 2px solid var(--purple);
+  transition: all 0.22s; cursor: pointer;
+}
+.btn-filled:hover { background: var(--purple2); border-color: var(--purple2); }
+
+.btn-outline {
+  padding: 0.8rem 2rem;
+  background: transparent; color: var(--ink);
+  font-size: 0.82rem; font-weight: 500;
+  border: 2px solid var(--border);
+  transition: all 0.22s; cursor: pointer;
+}
+.btn-outline:hover { border-color: var(--ink); }
+
+.hero-scroll {
+  position: absolute; bottom: 3rem; left: 3rem;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--light);
+  display: flex; align-items: center; gap: 0.75rem;
+  opacity: 0; animation: fadeUp 0.6s 1s forwards;
+}
+.hero-scroll::after {
+  content: ''; display: block; width: 1px; height: 3rem;
+  background: var(--light); margin-top: 0.5rem;
+}
+
+/* ── SECTION SHARED ── */
+.section-label {
+  font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--purple); margin-bottom: 1rem; font-weight: 400;
+}
+
+/* ── ABOUT ── */
+#about {
+  padding: 7rem 3rem;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+}
+
+.about-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 280px 1fr; gap: 5rem;
+}
+
+.about-left { padding-top: 0.25rem; }
+
+.about-img {
+  width: 100%; aspect-ratio: 3/4; object-fit: cover;
+  border: 2px solid var(--purple);
+  display: block;
+}
+
+.about-img-placeholder {
+  width: 100%; aspect-ratio: 3/4;
+  background: var(--purple-bg);
+  border: 2px solid var(--purple);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 5rem; color: var(--purple);
+  font-style: italic;
+}
+
+.about-right h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 400; line-height: 1.2; color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+.about-right h2 em { font-style: italic; color: var(--purple); }
+
+.about-right p {
+  font-size: 0.9rem; line-height: 1.85; color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+.about-right p strong { color: var(--ink); font-weight: 500; }
+
+.about-divider {
+  width: 100%; height: 1px; background: var(--border); margin: 2.5rem 0;
+}
+
+.about-stats {
+  display: flex; gap: 0; align-items: flex-start;
+}
+
+.stat {
+  flex: 1; padding-right: 2.5rem;
+}
+
+.stat-num {
+  font-family: var(--serif); font-size: 2.5rem; font-weight: 500;
+  color: var(--purple); line-height: 1; display: block;
+}
+.stat-lbl {
+  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--light); margin-top: 0.3rem; display: block;
+}
+
+/* ── EXPERIENCE ── */
+#experience {
+  padding: 7rem 3rem;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.exp-inner { max-width: 1100px; margin: 0 auto; }
+
+.exp-header { margin-bottom: 3rem; }
+
+.exp-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400; color: var(--ink); line-height: 1.1;
+}
+
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.exp-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 1.75rem;
+  display: flex; flex-direction: column;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.exp-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  transform: translateY(-2px);
+}
+
+.exp-card-top {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 1.1rem;
+}
+
+.exp-tag {
+  font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  background: var(--purple-bg); color: var(--purple);
+  padding: 0.25rem 0.6rem; border-radius: 2px; font-weight: 500;
+}
+
+/* featured card — filled purple tag */
+.exp-card.featured .exp-tag {
+  background: var(--purple); color: var(--white);
+}
+
+.exp-date {
+  font-size: 0.68rem; color: var(--light);
+}
+
+.exp-card h3 {
+  font-family: var(--serif); font-size: 1.2rem; font-weight: 500;
+  color: var(--ink); line-height: 1.25; margin-bottom: 0.25rem;
+}
+
+.exp-card .exp-co {
+  font-family: var(--serif); font-size: 0.82rem; font-style: italic;
+  color: var(--muted); margin-bottom: 1.1rem;
+}
+
+.exp-card ul { list-style: none; flex: 1; }
+.exp-card ul li {
+  font-size: 0.72rem; color: var(--muted); line-height: 1.55;
+  padding: 0.25rem 0 0.25rem 1rem; position: relative;
+  border-bottom: none;
+}
+.exp-card ul li::before {
+  content: '•'; position: absolute; left: 0;
+  color: var(--purple); font-size: 0.9rem;
+}
+
+/* highlight bold links like Bethany's TikTok numbers */
+.exp-card ul li a,
+.exp-card ul li strong {
+  color: var(--purple); font-weight: 500;
+}
+
+/* ── SKILLS ── */
+#skills {
+  padding: 7rem 3rem;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+}
+
+.skills-inner { max-width: 1100px; margin: 0 auto; }
+
+.skills-header { margin-bottom: 3rem; }
+.skills-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400; color: var(--ink);
+}
+
+.skills-cols {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;
+}
+
+/* 4th column (interests) sits under languages on right */
+.skills-right { display: flex; flex-direction: column; gap: 3rem; }
+
+.skills-group h4 {
+  font-family: var(--serif); font-size: 1.1rem; font-weight: 500;
+  color: var(--ink); margin-bottom: 1rem;
+  padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+}
+
+.skills-group ul { list-style: none; }
+.skills-group ul li {
+  font-size: 0.85rem; color: var(--muted);
+  padding: 0.45rem 0; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.lang-badge {
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--purple-bg); color: var(--purple);
+  padding: 0.2rem 0.5rem; border-radius: 2px;
+}
+
+/* ── CONTACT ── */
+#contact {
+  padding: 7rem 3rem;
+  background: var(--dark-bg);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.contact-inner { max-width: 700px; }
+
+#contact .section-label { color: rgba(255,255,255,0.4); }
+
+#contact h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400; line-height: 1.15;
+  color: var(--white); margin-bottom: 1.25rem;
+}
+#contact h2 em { font-style: italic; color: var(--purple); }
+
+#contact .contact-sub {
+  font-size: 0.88rem; color: rgba(255,255,255,0.5);
+  line-height: 1.75; margin-bottom: 3rem; max-width: 480px;
+}
+
+.contact-items { display: flex; flex-direction: column; gap: 1.1rem; }
+
+.contact-item {
+  display: flex; align-items: center; gap: 0.9rem;
+  font-size: 0.88rem; color: rgba(255,255,255,0.75);
+  transition: color 0.2s;
+}
+.contact-item:hover { color: var(--white); }
+
+.contact-item svg {
+  width: 16px; height: 16px;
+  stroke: rgba(255,255,255,0.4); fill: none; stroke-width: 1.5;
+  flex-shrink: 0;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark-bg2);
+  padding: 1.5rem 3rem;
+  text-align: center;
+  font-size: 0.72rem; color: rgba(255,255,255,0.25);
+  letter-spacing: 0.05em;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+.delay-1 { transition-delay: 0.05s; }
+.delay-2 { transition-delay: 0.12s; }
+.delay-3 { transition-delay: 0.19s; }
+.delay-4 { transition-delay: 0.26s; }
+.delay-5 { transition-delay: 0.33s; }
+.delay-6 { transition-delay: 0.40s; }
+.delay-7 { transition-delay: 0.47s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 1.2rem 1.5rem; }
+  .nav-links { gap: 1.5rem; }
+  #hero { padding: 8rem 1.5rem 4rem; }
+  .hero-ghost { display: none; }
+  .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-img-placeholder, .about-img { max-width: 200px; }
+  .about-stats { flex-wrap: wrap; gap: 1.5rem; }
+  .exp-grid { grid-template-columns: 1fr; }
+  .skills-cols { grid-template-columns: 1fr; gap: 2rem; }
+  #about, #experience, #skills, #contact { padding: 5rem 1.5rem; }
+  footer { padding: 1.25rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">AB</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-ghost">BADKUL</div>
+
+  <p class="hero-location">New Brunswick, NJ &nbsp;·&nbsp; Rutgers University</p>
+
+  <div class="hero-name">
+    <span class="hero-firstname">Avani</span>
+    <span class="hero-lastname">Badkul</span>
+  </div>
+
+  <div class="hero-roles">
+    <span>Financial Analyst</span>
+    <span class="hero-dot">·</span>
+    <span>DCF Modeling</span>
+    <span class="hero-dot">·</span>
+    <span>Corporate Strategy</span>
+  </div>
+
+  <div class="hero-ctas">
+    <a href="#experience" class="btn-filled">View My Work</a>
+    <a href="#contact" class="btn-outline">Get in Touch</a>
+  </div>
+
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+
+    <div class="about-left reveal">
+      <div class="section-label">01 — About</div>
+      <img src="LinkedIn.jpg" alt="Avani Badkul" class="about-img">
+    </div>
+
+    <div class="about-right">
+      <h2 class="reveal">Turning numbers into <em>stories that matter</em></h2>
+      <p class="reveal delay-1">I'm a Finance and Computer Science student at <strong>Rutgers University</strong>, graduating May 2026. I bring a rare blend of financial modeling, analytical thinking, and technical depth — whether I'm building a DCF from scratch, screening acquisition targets for a search fund, or evaluating early-stage startups for a venture firm.</p>
+      <p class="reveal delay-2">I've worked across corporate strategy, private equity, and venture capital, collaborating with teams at <strong>Broadridge Financial Solutions</strong>, West Bay Succession Capital, and HP Tech Ventures.</p>
+
+      <div class="about-divider reveal delay-3"></div>
+
+      <div class="about-stats reveal delay-4">
+        <div class="stat">
+          <span class="stat-num">3.87</span>
+          <span class="stat-lbl">GPA / 4.00</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">750+</span>
+          <span class="stat-lbl">Companies Screened</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">$50M</span>
+          <span class="stat-lbl">Revenue Analyzed</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">3</span>
+          <span class="stat-lbl">Finance Roles</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-inner">
+    <div class="exp-header reveal">
+      <div class="section-label">02 — Experience</div>
+      <h2>Work &amp; Projects</h2>
+    </div>
+
+    <div class="exp-grid">
+
+      <div class="exp-card reveal delay-1 featured">
+        <div class="exp-card-top">
+          <span class="exp-tag">Strategy</span>
+          <span class="exp-date">Jun 2025 – Aug 2025</span>
+        </div>
+        <h3>Strategy Intern</h3>
+        <p class="exp-co">Broadridge Financial Solutions, Inc. · New York, NY</p>
+        <ul>
+          <li>Assessed a <strong>~$50M revenue opportunity</strong> for a new asset management business line</li>
+          <li>Analyzed <strong>7+ competitor firms</strong> on pricing, distribution, and regulatory positioning</li>
+          <li>Built ELT materials reviewed by the <strong>President of Investor Communication Solutions</strong></li>
+          <li>Contributed to root-cause analysis on a process impacting millions of client shares</li>
+        </ul>
+      </div>
+
+      <div class="exp-card reveal delay-2">
+        <div class="exp-card-top">
+          <span class="exp-tag">Search Fund</span>
+          <span class="exp-date">Nov 2024 – Jan 2025</span>
+        </div>
+        <h3>Acquisition Analyst Intern</h3>
+        <p class="exp-co">West Bay Succession Capital · Boston, MA</p>
+        <ul>
+          <li>Screened <strong>750+ acquisition targets</strong> for a U.S. search fund</li>
+          <li>Built the firm's target screening framework from scratch</li>
+          <li>Trained <strong>6–7 incoming interns</strong> on sourcing methodology</li>
+        </ul>
+      </div>
+
+      <div class="exp-card reveal delay-3">
+        <div class="exp-card-top">
+          <span class="exp-tag">VC Research</span>
+          <span class="exp-date">Mar 2024 – Apr 2024</span>
+        </div>
+        <h3>VC Research Extern</h3>
+        <p class="exp-co">HP Tech Ventures · Remote</p>
+        <ul>
+          <li>Evaluated <strong>10+ early-stage startups</strong> in clean energy and B2B SaaS</li>
+          <li>Authored investment memos shared with HP associates for further review</li>
+        </ul>
+      </div>
+
+      <div class="exp-card reveal delay-4">
+        <div class="exp-card-top">
+          <span class="exp-tag">Financial Model</span>
+          <span class="exp-date">2026</span>
+        </div>
+        <h3>DCF Valuation — Coca-Cola (KO)</h3>
+        <p class="exp-co">Independent Project</p>
+        <ul>
+          <li>Full 3-statement model with IB-grade formatting from 10-K filings</li>
+          <li>WACC via CAPM · Perpetuity growth + EV/EBITDA dual valuation</li>
+          <li>Sensitivity table across WACC and terminal growth rate</li>
+        </ul>
+      </div>
+
+      <div class="exp-card reveal delay-5">
+        <div class="exp-card-top">
+          <span class="exp-tag">Financial Model</span>
+          <span class="exp-date">2026</span>
+        </div>
+        <h3>DCF Valuation — Nike (NKE)</h3>
+        <p class="exp-co">Independent Project</p>
+        <ul>
+          <li>Bottom-up DCF from FY2022–2025 actuals from Nike 10-K filings</li>
+          <li>Full WACC buildup · Projected margins, D&amp;A, and capex</li>
+          <li>Dual valuation output with sensitivity analysis</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-inner">
+    <div class="skills-header reveal">
+      <div class="section-label">03 — Skills</div>
+      <h2>What I Bring</h2>
+    </div>
+
+    <div class="skills-cols">
+
+      <div class="skills-group reveal delay-1">
+        <h4>Software & Tools</h4>
+        <ul>
+          <li>Excel (Advanced)</li>
+          <li>Bloomberg Terminal</li>
+          <li>PowerPoint</li>
+          <li>SQL</li>
+          <li>Java</li>
+          <li>Python</li>
+          <li>Microsoft Office Suite</li>
+        </ul>
+      </div>
+
+      <div class="skills-group reveal delay-2">
+        <h4>Core Competencies</h4>
+        <ul>
+          <li>Financial Modeling</li>
+          <li>Valuation & Deal Analysis</li>
+          <li>Competitive Research</li>
+          <li>Investment Memo Writing</li>
+          <li>Market Sizing</li>
+          <li>Data Analysis</li>
+          <li>Executive Presentations</li>
+        </ul>
+      </div>
+
+      <div class="skills-right reveal delay-3">
+        <div class="skills-group">
+          <h4>Certifications</h4>
+          <ul>
+            <li>FINRA SIE &nbsp;<span class="lang-badge">Jan 2026</span></li>
+            <li>CFA Investment Foundations</li>
+            <li>Bloomberg Market Concepts</li>
+          </ul>
+        </div>
+
+        <div class="skills-group">
+          <h4>Languages</h4>
+          <ul>
+            <li>English &nbsp;<span class="lang-badge">Native</span></li>
+            <li>Hindi &nbsp;<span class="lang-badge">Native</span></li>
+            <li>French &nbsp;<span class="lang-badge">Elementary</span></li>
+          </ul>
+        </div>
+
+        <div class="skills-group">
+          <h4>Interests</h4>
+          <ul>
+            <li>Tennis</li>
+            <li>Strength Training</li>
+            <li>Cooking</li>
+            <li>Traveling</li>
+            <li>Photography</li>
+            <li>Reading</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label">04 — Contact</div>
+    <h2>Let's work <em>together</em></h2>
+    <p class="contact-sub">Whether it's a financial analyst role, a modeling conversation, or anything in between — I'd love to hear from you.</p>
+
+    <div class="contact-items reveal">
+
+      <a href="mailto:avani.badkul26@gmail.com" class="contact-item">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        avani.badkul26@gmail.com
+      </a>
+
+      <a href="tel:5514551604" class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.72 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.63 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.18 6.18l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        551-455-1604
+      </a>
+
+      <a href="https://linkedin.com/in/avanibadkul" target="_blank" class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 Avani Badkul
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
